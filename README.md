@@ -167,27 +167,6 @@ curl "http://localhost:8000/jobs/1"
 - Implement database migrations with Alembic
 - Learn about database connections and sessions
 
-## Learning Notes
-
-### Key Concepts Covered
-
-1. **FastAPI basics**: Routes, request/response models
-2. **Pydantic**: Data validation and serialization
-3. **REST API design**: Resource-based endpoints, HTTP methods
-4. **Testing**: pytest, TestClient, fixtures
-5. **Type hints**: Python type annotations for better code
-
-### Common Issues & Solutions
-
-**Issue**: `ModuleNotFoundError: No module named 'app'`  
-**Solution**: Make sure you're running `uvicorn` from the project root and `app/__init__.py` exists
-
-**Issue**: Tests failing with import errors  
-**Solution**: Run `pytest` from the project root directory
-
-**Issue**: Port 8000 already in use  
-**Solution**: Kill the process or use a different port: `uvicorn app.main:app --port 8001`
-
 ## Resources
 
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
@@ -195,7 +174,3 @@ curl "http://localhost:8000/jobs/1"
 - [pytest Documentation](https://docs.pytest.org/)
 
 ---
-
-**Time spent this week**: Track your hours here!  
-**Challenges faced**: Document what was hard  
-**What you learned**: Key takeaways

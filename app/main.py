@@ -12,6 +12,14 @@ app = FastAPI(
 
 
 # Pydantic models for request/response validation
+#  Week 1: Basic Job Posting Management
+# --------------------------------------------
+# Define models for job postings
+# --------------------------------------------
+# Job Posting Model
+# --------------------------------------------
+# Define Pydantic models for job postings
+# --------------------------------------------
 class JobCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
     company: str = Field(..., min_length=1, max_length=200)
@@ -36,6 +44,8 @@ class JobCreate(BaseModel):
         }
 
 
+# Response model for job postings (includes ID and timestamps)
+# --------------------------------------------
 class JobResponse(BaseModel):
     id: int
     title: str
@@ -71,7 +81,7 @@ def create_job(job: JobCreate):
     """Create a new job posting"""
     global job_id_counter
 
-    job_data = job.model_dump()
+    job_data = job.model_dump()  # Convert Pydantic model to dict
     job_data["id"] = job_id_counter
     job_data["created_at"] = datetime.now()
 
@@ -111,6 +121,18 @@ def delete_job(job_id: int):
             return {"message": "Job deleted successfully", "job": deleted_job}
 
     raise HTTPException(status_code=404, detail=f"Job with id {job_id} not found")
+
+
+@app.get("/jobs/search/")
+def search_jobs(query: str, skip: int = 0, limit: int = 10):
+    """Search job postings by title or company"""
+    results = [
+        job
+        for job in jobs_db
+        if query.lower() in job["title"].lower()
+        or query.lower() in job["company"].lower()
+    ]
+    return results[skip : skip + limit]
 
 
 if __name__ == "__main__":
