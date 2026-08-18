@@ -1,12 +1,16 @@
+![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green.svg)
+![Status](https://img.shields.io/badge/status-week%201%20complete-success)
+
 # Job Analyzer API - Week 1
 
 ML-powered job posting analysis system for learning backend, ML engineering, and automation.
 
 ## Week 1 Goals
 
-✅ Setup FastAPI project structure  
-✅ Create basic CRUD endpoints for job postings  
-✅ Implement request/response validation with Pydantic  
+✅ Setup FastAPI project structure
+✅ Create basic CRUD endpoints for job postings
+✅ Implement request/response validation with Pydantic
 ✅ Write unit tests with pytest
 
 ## Project Structure
