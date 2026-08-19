@@ -23,60 +23,51 @@ job-analyzer/
 │   ├── api/                 # Future: route handlers
 │   ├── models/              # Future: database models
 │   └── services/            # Future: business logic
+├── src/
+│   └── job_analyser/        # Package metadata and console entry point
 ├── tests/
 │   ├── __init__.py
 │   └── test_main.py         # Unit tests
-├── requirements.txt
+├── pyproject.toml            # Project metadata and dependencies
+├── uv.lock                   # Locked dependency versions
+├── .python-version           # Python version used by uv
 └── README.md
 ```
 
 ## Setup Instructions
 
-### 1. Create Project Directory
+### 1. Install uv
+
+Install uv by following the instructions in the [official uv documentation](https://docs.astral.sh/uv/getting-started/installation/).
+
+### 2. Sync Dependencies
+
+From the project root, create the uv environment and install the locked dependencies:
 
 ```bash
-mkdir job-analyzer
-cd job-analyzer
+uv sync
 ```
 
-### 2. Create Virtual Environment
+The project requires Python 3.11 or later. The required version and dependencies are defined in `pyproject.toml`, with exact resolutions recorded in `uv.lock`.
+
+### 3. Run the API
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # On Mac/Linux
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Create Directory Structure
-
-```bash
-mkdir -p app/{api,models,services} tests
-touch app/__init__.py app/api/__init__.py tests/__init__.py
-```
-
-### 5. Run the API
-
-```bash
-uvicorn app.main:app --reload
+uv run uvicorn app.main:app --reload
 ```
 
 The API will be available at: `http://localhost:8000`
 
-### 6. View Interactive API Docs
+### 4. View Interactive API Docs
 
 Open your browser to: `http://localhost:8000/docs`
 
 FastAPI automatically generates interactive Swagger documentation!
 
-### 7. Run Tests
+### 5. Run Tests
 
 ```bash
-pytest tests/ -v
+uv run pytest tests/ -v
 ```
 
 ## API Endpoints
@@ -120,6 +111,16 @@ Get list of all jobs (with pagination)
 
 Get a specific job by ID
 
+### `GET /jobs/search/`
+
+Search jobs by title or company.
+
+**Query parameters:**
+
+- `query`: Text to search for in job titles and company names
+- `skip`: Number of matching jobs to skip (default: 0)
+- `limit`: Maximum number of matching jobs to return (default: 10)
+
 ### `DELETE /jobs/{job_id}`
 
 Delete a job posting
@@ -144,6 +145,9 @@ curl "http://localhost:8000/jobs"
 
 # Get specific job
 curl "http://localhost:8000/jobs/1"
+
+# Search jobs by title or company
+curl "http://localhost:8000/jobs/search/?query=Python"
 ```
 
 ### Using the interactive docs

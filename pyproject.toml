@@ -1,0 +1,23 @@
+[project]
+name = "job-analyser"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "yvanovic", email = "" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.109.0",
+    "httpx==0.26.0",
+    "pydantic==2.5.3",
+    "pytest==7.4.4",
+    "uvicorn[standard]==0.27.0",
+]
+
+[project.scripts]
+job-analyser = "job_analyser:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
